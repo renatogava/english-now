@@ -3,7 +3,7 @@
 ################################################################################
 
 /.vs
-/EnglishNow.Web/.vs
-/EnglishNow.Web/EnglishNow.Web/bin
-/EnglishNow.Web/EnglishNow.Web/obj
-/EnglishNow.Web/EnglishNow.Web/EnglishNow.Web.csproj.user
+/src/.vs
+/src/EnglishNow.Web/bin
+/src/EnglishNow.Web/obj
+/src/EnglishNow.Web/EnglishNow.Web.csproj.user
