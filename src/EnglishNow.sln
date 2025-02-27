@@ -10,6 +10,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DbScripts", "DbScripts", "{
 		create_database.sql = create_database.sql
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnglishNow.Services", "EnglishNow.Services\EnglishNow.Services.csproj", "{2616842F-290B-4F34-B9F4-7C4E71E00C6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnglishNow.Repositories", "EnglishNow.Repositories\EnglishNow.Repositories.csproj", "{8C3A1A8F-C7FF-433C-8134-CCB1EB96ACB2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +24,14 @@ Global
 		{51F9812D-70B2-489E-BD00-218F1BCEB055}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51F9812D-70B2-489E-BD00-218F1BCEB055}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51F9812D-70B2-489E-BD00-218F1BCEB055}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2616842F-290B-4F34-B9F4-7C4E71E00C6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2616842F-290B-4F34-B9F4-7C4E71E00C6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2616842F-290B-4F34-B9F4-7C4E71E00C6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2616842F-290B-4F34-B9F4-7C4E71E00C6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C3A1A8F-C7FF-433C-8134-CCB1EB96ACB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C3A1A8F-C7FF-433C-8134-CCB1EB96ACB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C3A1A8F-C7FF-433C-8134-CCB1EB96ACB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C3A1A8F-C7FF-433C-8134-CCB1EB96ACB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
