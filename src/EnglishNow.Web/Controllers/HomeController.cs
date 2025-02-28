@@ -15,8 +15,6 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        throw new Exception("Ocorreu um erro ao carregar a Home");
-
         return View();
     }
 }
