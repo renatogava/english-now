@@ -1,4 +1,5 @@
-﻿using EnglishNow.Web.Models.Usuario;
+﻿using EnglishNow.Services;
+using EnglishNow.Web.Models.Usuario;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,13 @@ namespace EnglishNow.Web.Controllers
 {
     public class UsuarioController : Controller
     {
+        private readonly IUsuarioService _usuarioService;
+
+        public UsuarioController(IUsuarioService usuarioService)
+        {
+            _usuarioService = usuarioService;
+        }
+
         [Route("login")]
         public IActionResult Login()
         {
@@ -20,6 +28,15 @@ namespace EnglishNow.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
+                return View(model);
+            }
+
+            var result = _usuarioService.ValidarLogin(model.Usuario!, model.Senha!);
+
+            if (!result.Sucesso)
+            {
+                ModelState.AddModelError(string.Empty, result.MensagemErro!);
+
                 return View(model);
             }
 
