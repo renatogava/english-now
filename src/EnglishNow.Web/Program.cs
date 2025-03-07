@@ -1,3 +1,4 @@
+using EnglishNow.Repositories;
 using EnglishNow.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
@@ -16,6 +17,10 @@ builder.Services
     });
 
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+
+var connectionString = builder.Configuration.GetConnectionString("EnglishNowConnectionString");
+
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>(c => new UsuarioRepository(connectionString!));
 
 var app = builder.Build();
 
