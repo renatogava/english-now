@@ -1,5 +1,6 @@
 ﻿using EnglishNow.Repositories;
 using EnglishNow.Services.Enums;
+using EnglishNow.Services.Mappings;
 using EnglishNow.Services.Models.Professor;
 
 namespace EnglishNow.Services
@@ -33,13 +34,10 @@ namespace EnglishNow.Services
                 return result;
             }
 
+            var usuario = request.MapToUsuario();
+
             //inserir o usuário
-            var usuarioId = _usuarioRepository.Inserir(new Repositories.Entities.Usuario
-            {
-                Login = request.Login,
-                Senha = request.Senha,
-                PapelId = (int)Papel.Professor
-            });
+            var usuarioId = _usuarioRepository.Inserir(usuario);
 
             if (!usuarioId.HasValue)
             {
@@ -47,13 +45,10 @@ namespace EnglishNow.Services
                 return result;
             }
 
+            var professor = request.MapToProfessor(usuarioId.Value);
+
             //inserir o professor
-            _professorRepository.Inserir(new Repositories.Entities.Professor
-            {
-                Nome = request.Nome,
-                Email = request.Email,
-                UsuarioId = usuarioId.Value
-            });
+            _professorRepository.Inserir(professor);
 
             result.Sucesso = true;
 
