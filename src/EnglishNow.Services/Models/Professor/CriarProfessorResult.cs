@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EnglishNow.Services.Models.Usuario
+namespace EnglishNow.Services.Models.Professor
 {
-    public class ValidarLoginResult : BaseResult
+    public class CriarProfessorResult : BaseResult
     {
+   
     }
 }

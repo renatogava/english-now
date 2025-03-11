@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EnglishNow.Services.Models.Usuario
+namespace EnglishNow.Services.Enums
 {
-    public class ValidarLoginResult : BaseResult
+    public enum Papel
     {
+        Administrador = 1,
+        Professor = 2,
+        Aluno = 3
     }
 }
