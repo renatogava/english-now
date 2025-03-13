@@ -45,5 +45,15 @@ namespace EnglishNow.Web.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        [Route("listar")]
+        public IActionResult Listar()
+        {
+            var professores = _professorService.Listar();
+
+            var result = professores.Select(c => c.MapToListarViewModel()).ToList();
+
+            return View(result);
+        }
     }
 }

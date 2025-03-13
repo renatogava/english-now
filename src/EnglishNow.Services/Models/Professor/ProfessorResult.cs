@@ -4,18 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EnglishNow.Repositories.Entities
+namespace EnglishNow.Services.Models.Professor
 {
-    public class Professor
+    public class ProfessorResult
     {
         public int Id { get; set; }
+
+        public int UsuarioId { get; set; }
 
         public required string Nome { get; set; }
 
         public required string Email { get; set; }
 
-        public int UsuarioId { get; set; }
+        public string? Login { get; set; }
 
-        public Usuario? Usuario { get; set; }
+        public string? Senha { get; set; }
     }
 }

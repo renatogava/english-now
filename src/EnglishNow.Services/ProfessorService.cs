@@ -8,6 +8,8 @@ namespace EnglishNow.Services
     public interface IProfessorService
     {
         CriarProfessorResult Criar(CriarProfessorRequest request);
+
+        IList<ProfessorResult> Listar();
     }
 
     public class ProfessorService : IProfessorService
@@ -51,6 +53,15 @@ namespace EnglishNow.Services
             _professorRepository.Inserir(professor);
 
             result.Sucesso = true;
+
+            return result;
+        }
+
+        public IList<ProfessorResult> Listar()
+        {
+            var professores = _professorRepository.Listar();
+
+            var result = professores.Select(c => c.MapToProfessorResult()).ToList();
 
             return result;
         }

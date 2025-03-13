@@ -1,0 +1,30 @@
+﻿@model IList<EnglishNow.Web.Models.Professor.ListarViewModel>;
+@{
+    ViewData["Title"] = "Listar Professores";
+}
+
+<h1>Lista de Professores</h1>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Email</th>
+                <th scope="col">Login</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var professor in Model)
+            {
+                <tr>
+                    <th>@professor.Id</th>
+                    <td>@professor.Nome</td>
+                    <td>@professor.Email</td>
+                    <td>@professor.Login</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
