@@ -43,7 +43,7 @@ namespace EnglishNow.Web.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Listar");
+            return RedirectToAction("Index", "Home");
         }
 
         [Route("listar")]

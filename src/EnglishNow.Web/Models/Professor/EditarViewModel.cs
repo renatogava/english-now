@@ -6,8 +6,6 @@ namespace EnglishNow.Web.Models.Professor
     {
         public int Id { get; set; }
 
-        public int UsuarioId { get; set; }
-
         [Required(ErrorMessage = "O campo Login é obrigatório.")]
         public string? Login { get; set; }
 
