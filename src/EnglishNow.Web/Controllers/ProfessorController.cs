@@ -55,5 +55,54 @@ namespace EnglishNow.Web.Controllers
 
             return View(result);
         }
+
+        [Route("editar/{id}")]
+        public IActionResult Editar(int id)
+        {
+            var professor = _professorService.ObterPorId(id);
+
+            var model = professor?.MapToEditarViewModel();
+
+            return View(model);
+        }
+
+        [Route("editar/{id}")]
+        [HttpPost]
+        public IActionResult Editar(EditarViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var request = model.MapToEditarProfessorRequest();
+
+            var result = _professorService.Editar(request);
+
+            if (!result.Sucesso)
+            {
+                ModelState.AddModelError(string.Empty, result.MensagemErro!);
+                
+                return View(model);
+            }
+
+            return RedirectToAction("Listar");
+        }
+
+        [Route("excluir/{id}")]
+        [HttpPost]
+        public IActionResult Excluir(EditarViewModel model)
+        {
+            var result = _professorService.Excluir(model.Id);
+
+            if (!result.Sucesso)
+            {
+                ModelState.AddModelError(string.Empty, result.MensagemErro!);
+
+                return View(model);
+            }
+
+            return RedirectToAction("Listar");
+        }
     }
 }

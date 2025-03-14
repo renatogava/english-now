@@ -3,6 +3,7 @@ using EnglishNow.Services.Models.Professor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,6 +35,18 @@ namespace EnglishNow.Services.Mappings
             };
 
             return result;
+        }
+
+        public static Professor MapToProfessor(this EditarProfessorRequest request)
+        {
+            var professor = new Professor
+            {
+                Id = request.Id,
+                Nome = request.Nome,
+                Email = request.Email
+            };
+
+            return professor;
         }
     }
 }

@@ -30,5 +30,33 @@ namespace EnglishNow.Web.Mappings
 
             return viewModel;
         }
+
+        public static EditarViewModel MapToEditarViewModel(this ProfessorResult model)
+        {
+            var viewModel = new EditarViewModel
+            {
+                Id = model.Id,
+                Nome = model.Nome,
+                Email = model.Email,
+                Login = model.Login!,
+                Senha = model.Senha!
+            };
+
+            return viewModel;
+        }
+
+        public static EditarProfessorRequest MapToEditarProfessorRequest(this EditarViewModel model)
+        {
+            var request = new EditarProfessorRequest
+            {
+                Id = model.Id,
+                Nome = model.Nome!,
+                Email = model.Email!,
+                Login = model.Login!,
+                Senha = model.Senha!
+            };
+
+            return request;
+        }
     }
 }

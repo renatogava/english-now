@@ -22,5 +22,17 @@ namespace EnglishNow.Services.Mappings
 
             return usuario;
         }
+
+        public static Usuario MapToUsuario(this EditarProfessorRequest request)
+        {
+            var usuario = new Usuario
+            {
+                Id = request.Id,
+                Login = request.Login,
+                Senha = request.Senha
+            };
+
+            return usuario;
+        }
     }
 }
