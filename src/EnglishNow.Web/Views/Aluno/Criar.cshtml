@@ -1,0 +1,54 @@
+﻿@model EnglishNow.Web.Models.Aluno.CriarViewModel
+@{
+    ViewData["Title"] = "Novo Aluno";
+}
+
+<h1>Novo Aluno</h1>
+
+<form class="row g-3 needs-validation" asp-controller="Aluno" asp-action="Criar" novalidate>
+    <div class="col-md-6">
+        <label for="inputLogin" class="form-label">Login</label>
+        <input type="text" class="form-control" id="inputLogin" asp-for="Login" required>
+    </div>
+    <div class="col-md-6">
+        <label for="inputSenha" class="form-label">Senha</label>
+        <input type="password" class="form-control" id="inputSenha" asp-for="Senha" required>
+    </div>
+    <div class="col-12">
+        <label for="inputNome" class="form-label">Nome</label>
+        <input type="text" class="form-control" id="inputNome" asp-for="Nome" required>
+    </div>
+    <div class="col-12">
+        <label for="inputEmail" class="form-label">Email</label>
+        <input type="email" class="form-control" id="inputEmail" asp-for="Email" required>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </div>
+
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+</form>
+
+@section Scripts {
+    <script>
+        (() => {
+          'use strict'
+
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          const forms = document.querySelectorAll('.needs-validation')
+
+          // Loop over them and prevent submission
+          Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+              if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+              }
+
+              form.classList.add('was-validated')
+            }, false)
+          })
+        })()
+    </script>
+}

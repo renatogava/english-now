@@ -20,11 +20,13 @@ builder.Configuration.AddEnvironmentVariables();
 
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IProfessorService, ProfessorService>();
+builder.Services.AddScoped<IAlunoService, AlunoService>();
 
 var connectionString = builder.Configuration.GetConnectionString("EnglishNowConnectionString");
 
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>(c => new UsuarioRepository(connectionString!));
 builder.Services.AddScoped<IProfessorRepository, ProfessorRepository>(c => new ProfessorRepository(connectionString!));
+builder.Services.AddScoped<IAlunoRepository, AlunoRepository>(c => new AlunoRepository(connectionString!));
 
 var app = builder.Build();
 

@@ -1,0 +1,36 @@
+﻿@model IList<EnglishNow.Web.Models.Aluno.ListarViewModel>;
+@{
+    ViewData["Title"] = "Listar Alunos";
+}
+
+<h1>Lista de Alunos</h1>
+
+<div class="py-2">
+    <a class="btn btn-primary" asp-controller="Aluno" asp-action="Criar">Novo</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Email</th>
+                <th scope="col">Login</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var aluno in Model)
+            {
+                <tr>
+                    <th>@aluno.Id</th>
+                    <td>@aluno.Nome</td>
+                    <td>@aluno.Email</td>
+                    <td>@aluno.Login</td>
+                    <td><a class="link-underline link-underline-opacity-0" asp-controller="Aluno" asp-action="Editar" asp-route-id="@aluno.Id">Editar</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
