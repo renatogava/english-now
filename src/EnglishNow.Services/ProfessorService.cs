@@ -69,7 +69,7 @@ namespace EnglishNow.Services
 
             var usuarioExistente = _usuarioRepository.ObterPorLogin(request.Login);
 
-            if (usuarioExistente != null && usuarioExistente.Id != request.Id)
+            if (usuarioExistente != null && usuarioExistente.Id != request.UsuarioId)
             {
                 result.MensagemErro = "Já existe outro usuário com esse login";
 

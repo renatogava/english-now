@@ -6,6 +6,11 @@
 <h1>Editar Professor</h1>
 
 <form class="row g-3 needs-validation" asp-controller="Professor" asp-action="Editar" novalidate>
+
+    <input type="hidden" asp-for="Id" />
+
+    <input type="hidden" asp-for="UsuarioId" />
+
     <div class="col-md-6">
         <label for="inputLogin" class="form-label">Login</label>
         <input type="text" class="form-control" id="inputLogin" asp-for="Login" required>
