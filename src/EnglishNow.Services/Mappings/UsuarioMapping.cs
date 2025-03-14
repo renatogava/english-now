@@ -1,11 +1,6 @@
 ﻿using EnglishNow.Repositories.Entities;
 using EnglishNow.Services.Enums;
 using EnglishNow.Services.Models.Professor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnglishNow.Services.Mappings
 {
@@ -27,7 +22,7 @@ namespace EnglishNow.Services.Mappings
         {
             var usuario = new Usuario
             {
-                Id = request.Id,
+                Id = request.UsuarioId,
                 Login = request.Login,
                 Senha = request.Senha
             };
