@@ -1,0 +1,58 @@
+﻿@model EnglishNow.Web.Models.Turma.CriarViewModel
+@{
+    ViewData["Title"] = "Nova Turma";
+}
+
+<h1>Nova Turma</h1>
+
+<form class="row g-3 needs-validation" asp-controller="Turma" asp-action="Criar" novalidate>
+    <div class="col-md-6">
+        <label for="inputAno" class="form-label">Ano</label>
+        <input type="number" class="form-control" id="inputAno" asp-for="Ano" required>
+    </div>
+    <div class="col-md-6">
+        <label for="selectSemestre" class="form-label">Semestre</label>
+        <select id="selectSemestre" class="form-select" asp-items="Model.Semestres" asp-for="Semestre" required></select>
+    </div>
+    <div class="col-12">
+        <label for="selectProfessor" class="form-label">Professor</label>
+        <select id="selectProfessor" class="form-select" asp-items="Model.Professores" asp-for="ProfessorId" required></select>
+    </div>
+    <div class="col-12">
+        <label for="inputPeriodo" class="form-label">Período</label>
+        <input type="text" class="form-control" id="inputPeriodo" asp-for="Periodo" required>
+    </div>
+    <div class="col-12">
+        <label for="inputNivel" class="form-label">Nivel</label>
+        <input type="text" class="form-control" id="inputNivel" asp-for="Nivel" required>
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </div>
+
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+</form>
+
+@section Scripts {
+    <script>
+        (() => {
+          'use strict'
+
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          const forms = document.querySelectorAll('.needs-validation')
+
+          // Loop over them and prevent submission
+          Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+              if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+              }
+
+              form.classList.add('was-validated')
+            }, false)
+          })
+        })()
+    </script>
+}
