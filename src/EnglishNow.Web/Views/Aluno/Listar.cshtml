@@ -1,6 +1,8 @@
-﻿@model IList<EnglishNow.Web.Models.Aluno.ListarViewModel>;
+﻿@using EnglishNow.Web.Models.Menu
+@model IList<EnglishNow.Web.Models.Aluno.ListarViewModel>;
 @{
     ViewData["Title"] = "Listar Alunos";
+    ViewData["Menu"] = Menu.Aluno;
 }
 
 <h1>Lista de Alunos</h1>

@@ -10,33 +10,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/">EnglishNow</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Alunos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Professores</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Turmas</a>
-                        </li>
-                    </ul>
-                    <form class="d-flex" role="search" asp-controller="Usuario" asp-action="Logout">
-                        <button class="btn btn-outline-light" type="submit">Sair</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
+        @await Component.InvokeAsync("Menu")
     </header>
 
     <div class="container">
@@ -52,10 +26,10 @@
             </a>
 
             <ul class="nav col-md-4 justify-content-end">
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Alunos</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Professores</a></li>
-                <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Turmas</a></li>
+                <li class="nav-item"><a asp-controller="Home" asp-action="Index" class="nav-link px-2 text-body-secondary">Home</a></li>
+                <li class="nav-item"><a asp-controller="Aluno" asp-action="Listar" class="nav-link px-2 text-body-secondary">Alunos</a></li>
+                <li class="nav-item"><a asp-controller="Professor" asp-action="Listar" class="nav-link px-2 text-body-secondary">Professores</a></li>
+                <li class="nav-item"><a asp-controller="Turma" asp-action="Listar" class="nav-link px-2 text-body-secondary">Turmas</a></li>
             </ul>
         </footer>
 
