@@ -1,4 +1,5 @@
 ﻿using EnglishNow.Repositories;
+using EnglishNow.Repositories.Entities;
 using EnglishNow.Services.Mappings;
 using EnglishNow.Services.Models.Turma;
 using System;
@@ -15,6 +16,8 @@ namespace EnglishNow.Services
 
         EditarTurmaResult Editar(EditarTurmaRequest request);
 
+        AssociarAlunoTurmaResult AssociarAlunoTurma(int alunoId, int turmaId);
+
         ExcluirTurmaResult Excluir(int id);
 
         IList<TurmaResult> Listar();
@@ -25,10 +28,14 @@ namespace EnglishNow.Services
     public class TurmaService : ITurmaService
     {
         private readonly ITurmaRepository _turmaRepository;
+        private readonly IAlunoTurmaBoletimRepository _alunoTurmaBoletimRepository;
 
-        public TurmaService(ITurmaRepository turmaRepository)
+        public TurmaService(
+            ITurmaRepository turmaRepository,
+            IAlunoTurmaBoletimRepository alunoTurmaBoletimRepository)
         {
             _turmaRepository = turmaRepository;
+            _alunoTurmaBoletimRepository = alunoTurmaBoletimRepository;
         }
 
         public CriarTurmaResult Criar(CriarTurmaRequest request)
@@ -62,6 +69,29 @@ namespace EnglishNow.Services
             if (affectedRows == 0)
             {
                 result.MensagemErro = "Não foi possível atualizar a turma";
+                return result;
+            }
+
+            result.Sucesso = true;
+
+            return result;
+        }
+
+        public AssociarAlunoTurmaResult AssociarAlunoTurma(int alunoId, int turmaId)
+        {
+            var result = new AssociarAlunoTurmaResult();
+
+            var alunoTurmaBoletim = new AlunoTurmaBoletim
+            {
+                AlunoId = alunoId,
+                TurmaId = turmaId
+            };
+
+            var affectedRows = _alunoTurmaBoletimRepository.Inserir(alunoTurmaBoletim);
+
+            if (affectedRows == 0)
+            {
+                result.MensagemErro = "Não foi possível associar o aluno à turma";
                 return result;
             }
 

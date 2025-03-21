@@ -38,25 +38,126 @@
 
 </form>
 
+<div class="card">
+    <div class="card-header">
+        Alunos da Turma
+    </div>
+    <div class="card-body">
+
+        @if (Model.AlunosTurma == null || Model.AlunosTurma.Count == 0)
+        {
+            <p class="card-text">Nenhum aluno encontrado para essa turma.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Login</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var aluno in Model.AlunosTurma)
+                        {
+                            <tr>
+                                <th>@aluno.Id</th>
+                                <td>@aluno.Nome</td>
+                                <td>@aluno.Email</td>
+                                <td>@aluno.Login</td>
+                                <td><a class="link-underline link-underline-opacity-0" asp-controller="Aluno" asp-action="Editar" asp-route-id="@aluno.Id">Editar</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+        <!-- Button que dispara a modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#alunosModal">
+            Adicionar Alunos
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="alunosModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <form asp-controller="Turma" asp-action="AssociarAlunos" asp-route-turmaId="@Model.Id">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar Alunos</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            @if (Model.Alunos == null || Model.Alunos.Count == 0)
+                            {
+                                <p class="card-text">Nenhum aluno encontrado.</p>
+                            }
+                            else
+                            {
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col"></th>
+                                                <th scope="col">Id</th>
+                                                <th scope="col">Nome</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Login</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var aluno in Model.Alunos)
+                                            {
+                                                <tr>
+                                                    <th><input type="checkbox" name="@($"aluno_{aluno.Id}")" /></th>
+                                                    <th>@aluno.Id</th>
+                                                    <td>@aluno.Nome</td>
+                                                    <td>@aluno.Email</td>
+                                                    <td>@aluno.Login</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 @section Scripts {
-        <script>
-            (() => {
-              'use strict'
+    <script>
+        (() => {
+          'use strict'
 
-              // Fetch all the forms we want to apply custom Bootstrap validation styles to
-              const forms = document.querySelectorAll('.needs-validation')
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          const forms = document.querySelectorAll('.needs-validation')
 
-              // Loop over them and prevent submission
-              Array.from(forms).forEach(form => {
-                form.addEventListener('submit', event => {
-                  if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                  }
+          // Loop over them and prevent submission
+          Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+              if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+              }
 
-                  form.classList.add('was-validated')
-                }, false)
-              })
-            })()
-        </script>
+              form.classList.add('was-validated')
+            }, false)
+          })
+        })()
+    </script>
 }

@@ -26,5 +26,19 @@ namespace EnglishNow.Web.Models.Turma
 
         public List<SelectListItem>? Professores { get; set; }
 
+        public IList<AlunoTurmaViewModel>? AlunosTurma { get; set; }
+
+        public IList<AlunoTurmaViewModel>? Alunos { get; set; }
+    }
+
+    public class AlunoTurmaViewModel
+    {
+        public int Id { get; set; }
+
+        public required string Nome { get; set; }
+
+        public required string Email { get; set; }
+
+        public required string Login { get; set; }
     }
 }

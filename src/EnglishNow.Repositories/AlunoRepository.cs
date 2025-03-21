@@ -18,6 +18,8 @@ namespace EnglishNow.Repositories
 
         IList<Aluno> Listar();
 
+        IList<Aluno> ListarPorTurma(int turmaId);
+
         Aluno? ObterPorId(int id);
     }
 
@@ -86,6 +88,53 @@ namespace EnglishNow.Repositories
                 using (var reader = cmd.ExecuteReader())
                 {
                     while(reader.Read())
+                    {
+                        var aluno = new Aluno
+                        {
+                            Id = reader.GetInt32("aluno_id"),
+                            Nome = reader.GetString("nome"),
+                            Email = reader.GetString("email"),
+                            UsuarioId = reader.GetInt32("usuario_id"),
+                            Usuario = new Usuario
+                            {
+                                Id = reader.GetInt32("usuario_id"),
+                                Login = reader.GetString("login"),
+                                Senha = reader.GetString("senha")
+                            }
+                        };
+
+                        result.Add(aluno);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public IList<Aluno> ListarPorTurma(int turmaId)
+        {
+            var result = new List<Aluno>();
+
+            using (var conn = new MySqlConnection(ConnectionString))
+            {
+                string query = @"SELECT a.aluno_id, a.nome, a.email, u.usuario_id, u.login, u.senha FROM 
+                                    aluno a INNER JOIN
+                                    usuario u ON a.usuario_id = u.usuario_id INNER JOIN
+                                    aluno_turma_boletim atb ON a.aluno_id = atb.aluno_id
+                                    WHERE
+                                    atb.turma_id = @turma_id
+                                    ORDER BY
+                                    a.aluno_id";
+
+                var cmd = new MySqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("turma_id", turmaId);
+
+                conn.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
                     {
                         var aluno = new Aluno
                         {
