@@ -136,6 +136,15 @@ namespace EnglishNow.Web.Controllers
             return RedirectToAction("Editar", "Turma", new { id = turmaId });
         }
 
+        [HttpPost]
+        [Route("desassociarAluno")]
+        public IActionResult DesassociarAluno(int alunoId, int turmaId)
+        {
+            _turmaService.DesassociarAlunoTurma(alunoId, turmaId);
+
+            return RedirectToAction("Editar", "Turma", new { id = turmaId });
+        }
+
         [Route("excluir/{id}")]
         [HttpPost]
         public IActionResult Excluir(EditarViewModel model)

@@ -33,6 +33,6 @@ namespace EnglishNow.Repositories.Entities
 
         public decimal? NotaFinalSemestre { get; set; }
 
-        public int FaltasSemestre { get; set; }
+        public int? FaltasSemestre { get; set; }
     }
 }
