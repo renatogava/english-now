@@ -2,6 +2,13 @@
 {
     public class ListarViewModel
     {
+        public IList<AlunoViewModel>? Alunos { get; set; }
+
+        public bool ExibirBotoesEdicao { get; set; }
+    }
+
+    public class AlunoViewModel
+    {
         public int Id { get; set; }
 
         public required string Nome { get; set; }

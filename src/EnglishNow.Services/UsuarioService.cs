@@ -1,10 +1,7 @@
 ﻿using EnglishNow.Repositories;
+using EnglishNow.Services.Enums;
+using EnglishNow.Services.Mappings;
 using EnglishNow.Services.Models.Usuario;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EnglishNow.Services
 {
@@ -53,6 +50,8 @@ namespace EnglishNow.Services
             }
 
             //se chegou até aqui é pq funcionou
+            result.Usuario = usuario.MapToUsuarioResult();
+
             result.Sucesso = true;
 
             return result;

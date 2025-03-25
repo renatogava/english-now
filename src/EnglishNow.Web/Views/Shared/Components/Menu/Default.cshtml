@@ -15,9 +15,14 @@
                 <li class="nav-item">
                     <a class="nav-link @(Model.Ativo == Menu.Aluno ? "active" : string.Empty)" asp-controller="Aluno" asp-action="Listar">Alunos</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link @(Model.Ativo == Menu.Professor ? "active" : string.Empty)" asp-controller="Professor" asp-action="Listar">Professores</a>
-                </li>
+
+                @if (Model.MenuProfessorVisivel)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link @(Model.Ativo == Menu.Professor ? "active" : string.Empty)" asp-controller="Professor" asp-action="Listar">Professores</a>
+                    </li>
+                }
+
                 <li class="nav-item">
                     <a class="nav-link @(Model.Ativo == Menu.Turma ? "active" : string.Empty)" asp-controller="Turma" asp-action="Listar">Turmas</a>
                 </li>

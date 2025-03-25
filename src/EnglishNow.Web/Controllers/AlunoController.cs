@@ -19,6 +19,7 @@ namespace EnglishNow.Web.Controllers
         }
 
         [Route("criar")]
+        [Authorize(Roles = "Administrador")]
         public IActionResult Criar()
         {
             return View();
@@ -26,6 +27,7 @@ namespace EnglishNow.Web.Controllers
 
         [HttpPost]
         [Route("criar")]
+        [Authorize(Roles = "Administrador")]
         public IActionResult Criar(CriarViewModel model)
         {
             if (!ModelState.IsValid)
@@ -49,14 +51,30 @@ namespace EnglishNow.Web.Controllers
         [Route("listar")]
         public IActionResult Listar()
         {
-            var professores = _alunoService.Listar();
+            IList<AlunoResult>? alunos = null;
+            
+            if (User.IsInRole("Administrador"))
+            {
+                alunos = _alunoService.Listar();
+            }
+            else if (User.IsInRole("Professor"))
+            {
+                var usuarioId = Convert.ToInt32(User.FindFirst("Id")?.Value);
 
-            var result = professores.Select(c => c.MapToListarViewModel()).ToList();
+                alunos = _alunoService.ListarPorProfessor(usuarioId);
+            }
 
-            return View(result);
+            var model = new ListarViewModel
+            {
+                Alunos = alunos.Select(c => c.MapToAlunoViewModel()).ToList(),
+                ExibirBotoesEdicao = User.IsInRole("Administrador")
+            };
+
+            return View(model);
         }
 
         [Route("editar/{id}")]
+        [Authorize(Roles = "Administrador")]
         public IActionResult Editar(int id)
         {
             var aluno = _alunoService.ObterPorId(id);
@@ -67,6 +85,7 @@ namespace EnglishNow.Web.Controllers
         }
 
         [Route("editar/{id}")]
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         public IActionResult Editar(EditarViewModel model)
         {
@@ -90,6 +109,7 @@ namespace EnglishNow.Web.Controllers
         }
 
         [Route("excluir/{id}")]
+        [Authorize(Roles = "Administrador")]
         [HttpPost]
         public IActionResult Excluir(EditarViewModel model)
         {
