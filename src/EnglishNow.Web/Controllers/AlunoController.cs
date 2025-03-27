@@ -66,7 +66,7 @@ namespace EnglishNow.Web.Controllers
 
             var model = new ListarViewModel
             {
-                Alunos = alunos.Select(c => c.MapToAlunoViewModel()).ToList(),
+                Alunos = alunos?.Select(c => c.MapToAlunoViewModel()).ToList(),
                 ExibirBotoesEdicao = User.IsInRole("Administrador")
             };
 

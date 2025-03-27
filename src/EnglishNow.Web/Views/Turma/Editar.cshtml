@@ -10,29 +10,33 @@
 <form class="row g-3 needs-validation" asp-controller="Turma" asp-action="Editar" novalidate>
     <div class="col-md-6">
         <label for="inputAno" class="form-label">Ano</label>
-        <input type="number" class="form-control" id="inputAno" asp-for="Ano" required>
+        <input type="number" disabled=@(Model.PodeEditarApagarTurma ? null : "disabled") class="form-control" id="inputAno" asp-for="Ano" required>
     </div>
     <div class="col-md-6">
         <label for="selectSemestre" class="form-label">Semestre</label>
-        <select id="selectSemestre" class="form-select" asp-items="Model.Semestres" asp-for="Semestre" required></select>
+        <select id="selectSemestre" disabled=@(Model.PodeEditarApagarTurma ? null : "disabled") class="form-select" asp-items="Model.Semestres" asp-for="Semestre" required></select>
     </div>
     <div class="col-12">
         <label for="selectProfessor" class="form-label">Professor</label>
-        <select id="selectProfessor" class="form-select" asp-items="Model.Professores" asp-for="ProfessorId" required></select>
+        <select id="selectProfessor" disabled=@(Model.PodeEditarApagarTurma ? null : "disabled") class="form-select" asp-items="Model.Professores" asp-for="ProfessorId" required></select>
     </div>
     <div class="col-12">
         <label for="inputPeriodo" class="form-label">Período</label>
-        <input type="text" class="form-control" id="inputPeriodo" asp-for="Periodo" required>
+        <input type="text" disabled=@(Model.PodeEditarApagarTurma ? null : "disabled") class="form-control" id="inputPeriodo" asp-for="Periodo" required>
     </div>
     <div class="col-12">
         <label for="inputNivel" class="form-label">Nivel</label>
-        <input type="text" class="form-control" id="inputNivel" asp-for="Nivel" required>
+        <input type="text" disabled=@(Model.PodeEditarApagarTurma ? null : "disabled") class="form-control" id="inputNivel" asp-for="Nivel" required>
     </div>
-    <div class="col-12">
-        <button type="submit" class="btn btn-primary">Salvar</button>
 
-        <button type="submit" class="btn btn-danger mx-2" formaction="@Url.Action("Excluir", "Turma", new{id = Model.Id})">Apagar</button>
-    </div>
+    @if (Model.PodeEditarApagarTurma)
+    {
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Salvar</button>
+
+            <button type="submit" class="btn btn-danger mx-2" formaction="@Url.Action("Excluir", "Turma", new{id = Model.Id})">Apagar</button>
+        </div>
+    }
 
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
@@ -59,7 +63,6 @@
                             <th scope="col">Email</th>
                             <th scope="col">Login</th>
                             <th scope="col"></th>
-                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -71,12 +74,13 @@
                                 <td>@aluno.Email</td>
                                 <td>@aluno.Login</td>
                                 <td>
-                                    <a class="link-underline link-underline-opacity-0" asp-controller="Aluno" asp-action="Editar" asp-route-id="@aluno.Id">Editar</a>
-                                </td>
-                                <td>
-                                    <form asp-controller="Turma" asp-action="DesassociarAluno" asp-route-alunoId="@aluno.Id" asp-route-turmaId="@Model.Id">
-                                        <button class="btn p-0 link-danger" type="submit">Excluir</button>
-                                    </form>
+
+                                    @if (Model.PodeEditarApagarTurma)
+                                    {
+                                        <form asp-controller="Turma" asp-action="DesassociarAluno" asp-route-alunoId="@aluno.Id" asp-route-turmaId="@Model.Id">
+                                            <button class="btn p-0 link-danger" type="submit">Excluir</button>
+                                        </form>
+                                    }
                                 </td>
                             </tr>
                         }
@@ -85,10 +89,13 @@
             </div>
         }
 
-        <!-- Button que dispara a modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#alunosModal">
-            Adicionar Alunos
-        </button>
+        @if (Model.PodeEditarApagarTurma)
+        {
+            <!-- Button que dispara a modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#alunosModal">
+                Adicionar Alunos
+            </button>
+        }
 
         <!-- Modal -->
         <div class="modal fade" id="alunosModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

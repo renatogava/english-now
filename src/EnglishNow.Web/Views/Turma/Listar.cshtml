@@ -1,6 +1,6 @@
 ﻿@using EnglishNow.Web.Models.Menu
 @using EnglishNow.Web.Models.Turma
-@model IList<ListarViewModel>;
+@model ListarViewModel;
 @{
     ViewData["Title"] = "Listar Turmas";
     ViewData["Menu"] = Menu.Turma;
@@ -8,34 +8,44 @@
 
 <h1>Lista de Turmas</h1>
 
-<div class="py-2">
-    <a class="btn btn-primary" asp-controller="Turma" asp-action="Criar">Novo</a>
-</div>
+@if (Model.ExibirBotaoInserir)
+{
+    <div class="py-2">
+        <a class="btn btn-primary" asp-controller="Turma" asp-action="Criar">Novo</a>
+    </div>
+}
 
-<div class="table-responsive">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Semestre/Ano</th>
-                <th scope="col">Professor</th>
-                <th scope="col">Período</th>
-                <th scope="col">Nivel</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(var turma in Model)
-            {
+@if (Model.Turmas == null || Model.Turmas.Count == 0)
+{
+    <p class="card-text">Nenhuma turma cadastrada.</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <th>@turma.Id</th>
-                    <td>@turma.SemestreAno</td>
-                    <td>@turma.Professor</td>
-                    <td>@turma.Periodo</td>
-                    <td>@turma.Nivel</td>
-                    <td><a class="link-underline link-underline-opacity-0" asp-controller="Turma" asp-action="Editar" asp-route-id="@turma.Id">Editar</a></td>
+                    <th scope="col">Id</th>
+                    <th scope="col">Semestre/Ano</th>
+                    <th scope="col">Professor</th>
+                    <th scope="col">Período</th>
+                    <th scope="col">Nivel</th>
+                    <th scope="col"></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var turma in Model.Turmas)
+                {
+                    <tr>
+                        <th>@turma.Id</th>
+                        <td>@turma.SemestreAno</td>
+                        <td>@turma.Professor</td>
+                        <td>@turma.Periodo</td>
+                        <td>@turma.Nivel</td>
+                        <td><a class="link-underline link-underline-opacity-0" asp-controller="Turma" asp-action="Editar" asp-route-id="@turma.Id">Editar</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

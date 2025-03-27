@@ -18,6 +18,8 @@ namespace EnglishNow.Repositories
 
         IList<Turma> Listar();
 
+        IList<Turma> ListarPorProfessor(int usuarioId);
+
         Turma? ObterPorId(int id);
     }
 
@@ -85,6 +87,55 @@ namespace EnglishNow.Repositories
                                     t.ano, t.semestre";
 
                 var cmd = new MySqlCommand(query, conn);
+
+                conn.Open();
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var turma = new Turma
+                        {
+                            Id = reader.GetInt32("turma_id"),
+                            Ano = reader.GetInt32("ano"),
+                            Semestre = reader.GetInt32("semestre"),
+                            Periodo = reader.GetString("periodo"),
+                            Nivel = reader.GetString("nivel"),
+                            ProfessorId = reader.GetInt32("professor_id"),
+                            Professor = new Professor
+                            {
+                                Id = reader.GetInt32("professor_id"),
+                                Nome = reader.GetString("nome"),
+                                Email = reader.GetString("email")
+                            }
+                        };
+
+                        result.Add(turma);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public IList<Turma> ListarPorProfessor(int usuarioId)
+        {
+            var result = new List<Turma>();
+
+            using (var conn = new MySqlConnection(ConnectionString))
+            {
+                string query = @"SELECT t.turma_id, t.semestre, t.ano, t.periodo, t.nivel, t.professor_id, p.nome, p.email FROM
+                                    turma t INNER JOIN
+                                    professor p ON t.professor_id = p.professor_id INNER JOIN
+                                    usuario u ON p.usuario_id = u.usuario_id
+                                    WHERE
+                                    u.usuario_id = @usuario_id
+                                    ORDER BY
+                                    t.ano, t.semestre";
+
+                var cmd = new MySqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("usuario_id", usuarioId);
 
                 conn.Open();
 
