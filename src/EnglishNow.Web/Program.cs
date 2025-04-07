@@ -1,6 +1,8 @@
 using EnglishNow.Repositories;
 using EnglishNow.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +44,13 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("pt-BR"),
+    SupportedCultures = new List<CultureInfo> { new CultureInfo("pt-BR") },
+    SupportedUICultures = new List<CultureInfo> { new CultureInfo("pt-BR") }
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
