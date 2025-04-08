@@ -1,0 +1,115 @@
+﻿@using EnglishNow.Web.Models.Menu
+@model EnglishNow.Web.Models.Boletim.EditarViewModel
+@{
+    ViewData["Title"] = "Editar Boletim";
+
+    ViewData["Menu"] = Menu.Turma;
+}
+
+<h1>Editar Turma</h1>
+
+<p>Turma: @Model.DescricaoTurma</p>
+
+<p>Aluno: @Model.NomeAluno</p>
+
+<form class="needs-validation" asp-controller="Boletim" asp-action="Editar" novalidate>
+
+    <div class="card border my-3">
+        <div class="card-header">
+            <h4>1° Bimestre</h4>
+        </div>
+        <div class="card-body">
+
+            <div class="row gx-2 gy-3">
+                <div class="col-sm-12 col-md-4">
+                    <label class="form-label">Escrita (0-10)</label>
+                    <input type="number" class="form-control" step="any" placeholder="--" maxlength="3" asp-for="NotaBim1Escrita" />
+                </div>
+
+                <div class="col-sm-12 col-md-4">
+                    <label class="form-label">Leitura (0-10)</label>
+                    <input type="number" class="form-control" step="any" placeholder="--" maxlength="3" asp-for="NotaBim1Leitura" />
+                </div>
+
+                <div class="col-sm-12 col-md-4">
+                    <label class="form-label">Conversação (0-10)</label>
+                    <input type="number" class="form-control" step="any" placeholder="--" maxlength="3" asp-for="NotaBim1Conversacao" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card border my-3">
+        <div class="card-header">
+            <h4>2° Bimestre</h4>
+        </div>
+        <div class="card-body">
+
+            <div class="row gx-2 gy-3">
+                <div class="col-sm-12 col-md-4">
+                    <label class="form-label">Escrita (0-10)</label>
+                    <input type="number" class="form-control" step="any" placeholder="--" maxlength="3" asp-for="NotaBim2Escrita" />
+                </div>
+
+                <div class="col-sm-12 col-md-4">
+                    <label class="form-label">Leitura (0-10)</label>
+                    <input type="number" class="form-control" step="any" placeholder="--" maxlength="3" asp-for="NotaBim2Leitura" />
+                </div>
+
+                <div class="col-sm-12 col-md-4">
+                    <label class="form-label">Conversação (0-10)</label>
+                    <input type="number" class="form-control" step="any" placeholder="--" maxlength="3" asp-for="NotaBim2Conversacao" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card border my-3">
+        <div class="card-header">
+            <h4>Nota Final e Faltas</h4>
+        </div>
+        <div class="card-body">
+
+            <div class="row gx-2 gy-3">
+
+                <div class="col-sm-12 col-md-4 my-3">
+                    <label class="form-label">Faltas</label>
+                    <input type="number" class="form-control" placeholder="--" maxlength="3" asp-for="FaltasSemestre" />
+                </div>
+
+                <p>Nota Final: </p>
+            </div>
+
+        </div>
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </div>
+
+</form>
+
+@section Scripts {
+    <script>
+        (() => {
+          'use strict'
+
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          const forms = document.querySelectorAll('.needs-validation')
+
+          // Loop over them and prevent submission
+          Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+              if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+              }
+
+              form.classList.add('was-validated')
+            }, false)
+          })
+        })()
+    </script>
+}

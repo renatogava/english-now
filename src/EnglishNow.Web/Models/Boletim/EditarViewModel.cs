@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EnglishNow.Repositories.Entities
+﻿namespace EnglishNow.Web.Models.Boletim
 {
-    public class AlunoTurmaBoletim
+    public class EditarViewModel
     {
-        public int Id { get; set; }
-
-        public int AlunoId { get; set; }
+        public int BoletimId { get; set; }
 
         public int TurmaId { get; set; }
+
+        public string? NomeAluno { get; set; }
+
+        public string? DescricaoTurma { get; set; }
 
         public decimal? NotaBim1Escrita { get; set; }
 
@@ -34,9 +29,5 @@ namespace EnglishNow.Repositories.Entities
         public decimal? NotaFinalSemestre { get; set; }
 
         public int? FaltasSemestre { get; set; }
-
-        public Aluno? Aluno { get; set; }
-
-        public Turma? Turma { get; set; }
     }
 }
