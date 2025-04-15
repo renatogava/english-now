@@ -1,4 +1,5 @@
 ﻿@using EnglishNow.Web.Models.Menu
+@using System.Globalization
 @model EnglishNow.Web.Models.Boletim.EditarViewModel
 @{
     ViewData["Title"] = "Editar Boletim";
@@ -14,6 +15,8 @@
 
 <form class="needs-validation" asp-controller="Boletim" asp-action="Editar" novalidate>
 
+    <input type="hidden" asp-for="BoletimId" />
+
     <div class="card border my-3">
         <div class="card-header">
             <h4>1° Bimestre</h4>
@@ -23,19 +26,22 @@
             <div class="row gx-2 gy-3">
                 <div class="col-sm-12 col-md-4">
                     <label class="form-label">Escrita (0-10)</label>
-                    <input type="number" class="form-control" step="any" placeholder="--" maxlength="3" asp-for="NotaBim1Escrita" />
+                    <input type="number" id="notaBim1Escrita" class="form-control calcular1" step="any" placeholder="--" maxlength="3" asp-for="NotaBim1Escrita" />
                 </div>
 
                 <div class="col-sm-12 col-md-4">
                     <label class="form-label">Leitura (0-10)</label>
-                    <input type="number" class="form-control" step="any" placeholder="--" maxlength="3" asp-for="NotaBim1Leitura" />
+                    <input type="number" id="notaBim1Leitura" class="form-control calcular1" step="any" placeholder="--" maxlength="3" asp-for="NotaBim1Leitura" />
                 </div>
 
                 <div class="col-sm-12 col-md-4">
                     <label class="form-label">Conversação (0-10)</label>
-                    <input type="number" class="form-control" step="any" placeholder="--" maxlength="3" asp-for="NotaBim1Conversacao" />
+                    <input type="number" id="notaBim1Conversacao" class="form-control calcular1" step="any" placeholder="--" maxlength="3" asp-for="NotaBim1Conversacao" />
                 </div>
             </div>
+
+            <p class="m-0 pt-3">Nota Final 1° Bimestre: <b id="notaBim1FinalExibicao">@(Model.NotaBim1Final.HasValue ? Model.NotaBim1Final.Value : string.Empty)</b></p>
+            <input type="hidden" asp-for="NotaBim1Final" id="notaBim1Final" />
 
         </div>
     </div>
@@ -49,20 +55,22 @@
             <div class="row gx-2 gy-3">
                 <div class="col-sm-12 col-md-4">
                     <label class="form-label">Escrita (0-10)</label>
-                    <input type="number" class="form-control" step="any" placeholder="--" maxlength="3" asp-for="NotaBim2Escrita" />
+                    <input type="number" id="notaBim2Escrita" class="form-control calcular2" step="any" placeholder="--" maxlength="3" asp-for="NotaBim2Escrita" />
                 </div>
 
                 <div class="col-sm-12 col-md-4">
                     <label class="form-label">Leitura (0-10)</label>
-                    <input type="number" class="form-control" step="any" placeholder="--" maxlength="3" asp-for="NotaBim2Leitura" />
+                    <input type="number" id="notaBim2Leitura" class="form-control calcular2" step="any" placeholder="--" maxlength="3" asp-for="NotaBim2Leitura" />
                 </div>
 
                 <div class="col-sm-12 col-md-4">
                     <label class="form-label">Conversação (0-10)</label>
-                    <input type="number" class="form-control" step="any" placeholder="--" maxlength="3" asp-for="NotaBim2Conversacao" />
+                    <input type="number" id="notaBim2Conversacao" class="form-control calcular2" step="any" placeholder="--" maxlength="3" asp-for="NotaBim2Conversacao" />
                 </div>
             </div>
 
+            <p class="m-0 pt-3">Nota Final 2° Bimestre: <b id="notaBim2FinalExibicao">@(Model.NotaBim2Final.HasValue ? Model.NotaBim2Final.Value : string.Empty)</b></p>
+            <input type="hidden" asp-for="NotaBim2Final" id="notaBim2Final" />
         </div>
     </div>
 
@@ -79,7 +87,8 @@
                     <input type="number" class="form-control" placeholder="--" maxlength="3" asp-for="FaltasSemestre" />
                 </div>
 
-                <p>Nota Final: </p>
+                <p class="m-0">Nota Final: <b id="notaFinalExibicao">@(Model.NotaFinalSemestre.HasValue ? Model.NotaFinalSemestre.Value : string.Empty)</b></p>
+                <input type="hidden" asp-for="NotaFinalSemestre" id="notaFinal" />
             </div>
 
         </div>
@@ -111,5 +120,124 @@
             }, false)
           })
         })()
+
+        const elementosBim1 = document.getElementsByClassName('calcular1');
+        const elementosBim2 = document.getElementsByClassName('calcular2');
+
+        //Bim 1
+        const elementoNotaBim1Escrita = document.getElementById('notaBim1Escrita');
+        const elementoNotaBim1Leitura = document.getElementById('notaBim1Leitura');
+        const elementoNotaBim1Conversacao = document.getElementById('notaBim1Conversacao');
+        const elementoNotaBim1FinalExibicao = document.getElementById('notaBim1FinalExibicao');
+        const elementoNotaBim1Final = document.getElementById('notaBim1Final');
+
+        //Bim 2
+        const elementoNotaBim2Escrita = document.getElementById('notaBim2Escrita');
+        const elementoNotaBim2Leitura = document.getElementById('notaBim2Leitura');
+        const elementoNotaBim2Conversacao = document.getElementById('notaBim2Conversacao');
+        const elementoNotaBim2FinalExibicao = document.getElementById('notaBim2FinalExibicao');
+        const elementoNotaBim2Final = document.getElementById('notaBim2Final');
+
+        //Nota Final
+        const elementoNotaFinalExibicao = document.getElementById('notaFinalExibicao');
+        const elementoNotaFinal = document.getElementById('notaFinal');
+
+        let notaBim1Final = @(Model.NotaBim1Final.HasValue ? Model.NotaBim1Final.Value.ToString(CultureInfo.InvariantCulture) : 0);
+        let notaBim2Final = @(Model.NotaBim2Final.HasValue ? Model.NotaBim2Final.Value.ToString(CultureInfo.InvariantCulture) : 0);
+
+        const calcularNotaBim1 = function()
+        {
+            if (elementoNotaBim1Escrita.value === '' || 
+            elementoNotaBim1Leitura.value === '' ||
+            elementoNotaBim1Conversacao.value === '')
+            {
+                elementoNotaBim1FinalExibicao.innerText = '';
+                elementoNotaBim1Final.value = '';
+
+                elementoNotaFinalExibicao.innerText = '';
+                elementoNotaFinal.value = '';
+
+                return;
+            }
+
+            const notaBim1Escrita = +elementoNotaBim1Escrita.value;
+            const notaBim1Leitura = +elementoNotaBim1Leitura.value;
+            const notaBim1Conversacao = +elementoNotaBim1Conversacao.value;
+
+            notaBim1Final = calcularMediaBimestre(notaBim1Escrita, notaBim1Leitura, notaBim1Conversacao);
+
+            elementoNotaBim1FinalExibicao.innerText = notaBim1Final.toLocaleString('pt-BR');
+            elementoNotaBim1Final.value = notaBim1Final.toLocaleString('pt-BR');
+
+            calcularNotaFinal(); 
+        }
+
+        const calcularNotaBim2 = function()
+        {
+            if (elementoNotaBim2Escrita.value === '' ||
+            elementoNotaBim2Leitura.value === '' ||
+            elementoNotaBim2Conversacao.value === '')
+            {
+                elementoNotaBim2FinalExibicao.innerText = '';
+                elementoNotaBim2Final.value = '';
+
+                elementoNotaFinalExibicao.innerText = '';
+                elementoNotaFinal.value = '';
+
+                return;
+            }
+
+            const notaBim2Escrita = +elementoNotaBim2Escrita.value;
+            const notaBim2Leitura = +elementoNotaBim2Leitura.value;
+            const notaBim2Conversacao = +elementoNotaBim2Conversacao.value;
+
+            notaBim2Final = calcularMediaBimestre(notaBim2Escrita, notaBim2Leitura, notaBim2Conversacao);
+
+            elementoNotaBim2FinalExibicao.innerText = notaBim2Final.toLocaleString('pt-BR');
+            elementoNotaBim2Final.value = notaBim2Final.toLocaleString('pt-BR');
+
+            calcularNotaFinal();
+        }
+
+        for (let i = 0; i < elementosBim1.length; i++)
+        {
+            elementosBim1[i].addEventListener('keyup', calcularNotaBim1, false);
+        }
+
+        for (let i = 0; i < elementosBim2.length; i++)
+        {
+            elementosBim2[i].addEventListener('keyup', calcularNotaBim2, false);
+        }
+
+        function calcularNotaFinal()
+        {
+            if (elementoNotaBim1FinalExibicao.innerText === '' ||
+            elementoNotaBim2FinalExibicao.innerText === '')
+            {
+                elementoNotaFinalExibicao.innerText = '';
+                elementoNotaFinal.value = '';
+                return;
+            }
+
+            const notaFinal = calcularMediaSemestre(notaBim1Final, notaBim2Final);
+
+            elementoNotaFinalExibicao.innerText = notaFinal.toLocaleString('pt-BR');
+            elementoNotaFinal.value = notaFinal.toLocaleString('pt-BR');
+        }
+
+        function calcularMediaBimestre(nota1, nota2, nota3)
+        {
+            const media = (nota1 + nota2 + nota3) / 3;
+
+            return +media.toFixed(2);
+        }
+
+        function calcularMediaSemestre(nota1, nota2)
+        {
+            const media = (nota1 + nota2) / 2;
+
+            return +media.toFixed(2);
+        }
+
     </script>
 }

@@ -1,5 +1,6 @@
 ﻿using EnglishNow.Services;
 using EnglishNow.Web.Mappings;
+using EnglishNow.Web.Models.Boletim;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EnglishNow.Web.Controllers
@@ -27,6 +28,28 @@ namespace EnglishNow.Web.Controllers
             var model = result!.MapToEditarViewModel();
 
             return View(model);
+        }
+
+        [HttpPost]
+        [Route("editar/{alunoId}/{turmaId}")]
+        public IActionResult Editar(EditarViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var request = model.MapToAtualizarBoletimRequest();
+
+            var result = _boletimService.Atualizar(request);
+
+            if (!result.Sucesso)
+            {
+                ModelState.AddModelError(string.Empty, result.MensagemErro!);
+                return View(model); 
+            }
+
+            return RedirectToAction("Editar", "Turma", new { id = model.TurmaId });
         }
     }
 }
