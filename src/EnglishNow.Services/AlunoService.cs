@@ -19,7 +19,11 @@ namespace EnglishNow.Services
 
         IList<AlunoResult> ListarPorProfessor(int usuarioId);
 
+        IList<AlunoResult> ListarPorAluno(int usuarioId);
+
         AlunoResult? ObterPorId(int id);
+
+        AlunoResult? ObterPorUsuarioId(int usuarioId);
     }
 
     public class AlunoService : IAlunoService
@@ -168,9 +172,30 @@ namespace EnglishNow.Services
             return result;
         }
 
+        public IList<AlunoResult> ListarPorAluno(int usuarioId)
+        {
+            var alunos = _alunoRepository.ListarPorAluno(usuarioId);
+
+            var result = alunos.Select(c => c.MapToAlunoResult()).ToList();
+
+            return result;
+        }
+
         public AlunoResult? ObterPorId(int id)
         {
             var aluno = _alunoRepository.ObterPorId(id);
+
+            if (aluno == null)
+                return null;
+
+            var result = aluno.MapToAlunoResult();
+
+            return result;
+        }
+
+        public AlunoResult? ObterPorUsuarioId(int usuarioId)
+        {
+            var aluno = _alunoRepository.ObterPorUsuarioId(usuarioId);
 
             if (aluno == null)
                 return null;
