@@ -6,6 +6,8 @@
 
         public int TurmaId { get; set; }
 
+        public bool PodeEditarBoletim { get; set; }
+
         public string? NomeAluno { get; set; }
 
         public string? DescricaoTurma { get; set; }

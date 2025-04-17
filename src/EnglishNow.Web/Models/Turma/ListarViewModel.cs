@@ -5,6 +5,12 @@
         public IList<TurmaViewModel>? Turmas { get; set; }
 
         public bool ExibirBotaoInserir { get; set; }
+
+        public bool ExibirBotaoEditar { get; set; }
+
+        public bool ExibirBotaoBoletim { get; set; }
+
+        public int? AlunoId { get; set; }
     }
 
     public class TurmaViewModel

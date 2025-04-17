@@ -27,6 +27,8 @@ namespace EnglishNow.Web.Controllers
 
             var model = result!.MapToEditarViewModel();
 
+            model.PodeEditarBoletim = (User.IsInRole("Administrador") || User.IsInRole("Professor"));
+
             return View(model);
         }
 
