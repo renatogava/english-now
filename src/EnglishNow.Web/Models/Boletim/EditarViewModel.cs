@@ -29,5 +29,7 @@
         public decimal? NotaFinalSemestre { get; set; }
 
         public int? FaltasSemestre { get; set; }
+
+        public bool PermitirEdicao { get; set; }
     }
 }

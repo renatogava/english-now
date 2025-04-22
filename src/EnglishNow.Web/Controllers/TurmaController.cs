@@ -67,21 +67,37 @@ namespace EnglishNow.Web.Controllers
         {
             IList<TurmaResult>? turmas = null;
 
+            var usuarioId = Convert.ToInt32(User.FindFirst("Id")?.Value);
+
+            int? alunoId = null;
+
             if (User.IsInRole("Administrador"))
             {
                 turmas = _turmaService.Listar();
             }
             else if (User.IsInRole("Professor"))
             {
-                var usuarioId = Convert.ToInt32(User.FindFirst("Id")?.Value);
-
                 turmas = _turmaService.ListarPorProfessor(usuarioId);
+            }
+            else if (User.IsInRole("Aluno"))
+            {
+                turmas = _turmaService.ListarPorAluno(usuarioId);
+
+                var aluno = _alunoService.ObterPorUsuarioId(usuarioId);
+
+                if (aluno != null)
+                {
+                    alunoId = aluno.Id;
+                }
             }
 
             var result = new ListarViewModel
             {
                 Turmas = turmas?.Select(c => c.MapToTurmaViewModel()).ToList(),
-                ExibirBotaoInserir = User.IsInRole("Administrador")
+                ExibirBotaoInserir = User.IsInRole("Administrador"),
+                ExibirBotaoEditar = User.IsInRole("Administrador") || User.IsInRole("Professor"),
+                ExibirBotaoBoletim = User.IsInRole("Aluno"),
+                AlunoId = alunoId
             };
 
             return View(result);
