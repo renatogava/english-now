@@ -22,11 +22,7 @@ namespace EnglishNow.Repositories
 
         IList<Aluno> ListarPorProfessor(int usuarioId);
 
-        IList<Aluno> ListarPorAluno(int usuarioId);
-
         Aluno? ObterPorId(int id);
-
-        Aluno? ObterPorUsuarioId(int usuarioId);
     }
 
     public class AlunoRepository : BaseRepository, IAlunoRepository
@@ -214,50 +210,6 @@ namespace EnglishNow.Repositories
             return result;
         }
 
-        public IList<Aluno> ListarPorAluno(int usuarioId)
-        {
-            var result = new List<Aluno>();
-
-            using (var conn = new MySqlConnection(ConnectionString))
-            {
-                string query = @"SELECT a.aluno_id, a.nome, a.email, u.usuario_id, u.login, u.senha FROM 
-                                    aluno a INNER JOIN
-                                    usuario u ON a.usuario_id = u.usuario_id
-                                    WHERE
-                                    u.usuario_id = @usuario_id";
-
-                var cmd = new MySqlCommand(query, conn);
-
-                cmd.Parameters.AddWithValue("usuario_id", usuarioId);
-
-                conn.Open();
-
-                using (var reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        var aluno = new Aluno
-                        {
-                            Id = reader.GetInt32("aluno_id"),
-                            Nome = reader.GetString("nome"),
-                            Email = reader.GetString("email"),
-                            UsuarioId = reader.GetInt32("usuario_id"),
-                            Usuario = new Usuario
-                            {
-                                Id = reader.GetInt32("usuario_id"),
-                                Login = reader.GetString("login"),
-                                Senha = reader.GetString("senha")
-                            }
-                        };
-
-                        result.Add(aluno);
-                    }
-                }
-            }
-
-            return result;
-        }
-
         public Aluno? ObterPorId(int id)
         {
             Aluno? result = null;
@@ -273,48 +225,6 @@ namespace EnglishNow.Repositories
                 var cmd = new MySqlCommand(query, conn);
 
                 cmd.Parameters.AddWithValue("aluno_id", id);
-
-                conn.Open();
-
-                using (var reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        result = new Aluno
-                        {
-                            Id = reader.GetInt32("aluno_id"),
-                            Nome = reader.GetString("nome"),
-                            Email = reader.GetString("email"),
-                            UsuarioId = reader.GetInt32("usuario_id"),
-                            Usuario = new Usuario
-                            {
-                                Id = reader.GetInt32("usuario_id"),
-                                Login = reader.GetString("login"),
-                                Senha = reader.GetString("senha")
-                            }
-                        };
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        public Aluno? ObterPorUsuarioId(int usuarioId)
-        {
-            Aluno? result = null;
-
-            using (var conn = new MySqlConnection(ConnectionString))
-            {
-                string query = @"SELECT a.aluno_id, a.nome, a.email, u.usuario_id, u.login, u.senha FROM 
-                                    aluno a INNER JOIN
-                                    usuario u ON a.usuario_id = u.usuario_id
-                                    WHERE
-                                    u.usuario_id = @usuario_id";
-
-                var cmd = new MySqlCommand(query, conn);
-
-                cmd.Parameters.AddWithValue("usuario_id", usuarioId);
 
                 conn.Open();
 

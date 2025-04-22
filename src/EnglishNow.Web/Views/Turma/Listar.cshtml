@@ -42,18 +42,7 @@ else
                         <td>@turma.Professor</td>
                         <td>@turma.Periodo</td>
                         <td>@turma.Nivel</td>
-                        <td>
-
-                            @if (Model.ExibirBotaoEditar)
-                            {
-                                <a class="link-underline link-underline-opacity-0" asp-controller="Turma" asp-action="Editar" asp-route-id="@turma.Id">Editar</a>                                
-                            }
-
-                            @if (Model.ExibirBotaoBoletim && Model.AlunoId.HasValue)
-                            {
-                                <a class="link-underline link-underline-opacity-0" asp-controller="Boletim" asp-action="Editar" asp-route-turmaId="@turma.Id" asp-route-alunoId="@Model.AlunoId.Value">Boletim</a>
-                            }
-                        </td>
+                        <td><a class="link-underline link-underline-opacity-0" asp-controller="Turma" asp-action="Editar" asp-route-id="@turma.Id">Editar</a></td>
                     </tr>
                 }
             </tbody>
