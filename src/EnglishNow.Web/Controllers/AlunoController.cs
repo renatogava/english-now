@@ -52,16 +52,20 @@ namespace EnglishNow.Web.Controllers
         public IActionResult Listar()
         {
             IList<AlunoResult>? alunos = null;
-            
+
+            var usuarioId = Convert.ToInt32(User.FindFirst("Id")?.Value);
+
             if (User.IsInRole("Administrador"))
             {
                 alunos = _alunoService.Listar();
             }
             else if (User.IsInRole("Professor"))
             {
-                var usuarioId = Convert.ToInt32(User.FindFirst("Id")?.Value);
-
                 alunos = _alunoService.ListarPorProfessor(usuarioId);
+            }
+            else if (User.IsInRole("Aluno"))
+            {
+                alunos = _alunoService.ListarPorAluno(usuarioId);
             }
 
             var model = new ListarViewModel
