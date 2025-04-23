@@ -42,6 +42,12 @@ namespace EnglishNow.Services
         {
             var result = new CriarAlunoResult();
 
+            if (request == null)
+            {
+                result.MensagemErro = "Objeto CriarAlunoRequest obrigatório";
+                return result;
+            }
+
             var usuarioExistente = _usuarioRepository.ObterPorLogin(request.Login);
 
             if (usuarioExistente != null)
@@ -64,7 +70,13 @@ namespace EnglishNow.Services
             var aluno = request.MapToAluno(usuarioId.Value);
 
             //inserir o aluno
-            _alunoRepository.Inserir(aluno);
+            var alunoId = _alunoRepository.Inserir(aluno);
+
+            if (!alunoId.HasValue)
+            {
+                result.MensagemErro = "Erro ao inserir o aluno";
+                return result;
+            }
 
             result.Sucesso = true;
 
