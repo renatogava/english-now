@@ -2,14 +2,14 @@
 -- Este script cria as tabelas e insere os registros iniciais
 
 -- Criar o banco de dados se não existir
-IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'EnglishNow')
+IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'english_now')
 BEGIN
-    CREATE DATABASE [EnglishNow];
+    CREATE DATABASE [english_now];
 END
 GO
 
 -- Usar o banco de dados
-USE [EnglishNow];
+USE [english_now];
 GO
 
 -- Criar tabela papel
