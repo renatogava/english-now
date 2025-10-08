@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="MySql.Data" Version="9.2.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
   </ItemGroup>
 
 </Project>
