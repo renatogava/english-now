@@ -50,16 +50,16 @@ namespace EnglishNow.Repositories
 
                 var cmd = new SqlCommand(query, conn);
 
-                cmd.Parameters.AddWithValue("@nota_bim1_escrita", alunoTurmaBoletim.NotaBim1Escrita);
-                cmd.Parameters.AddWithValue("@nota_bim1_leitura", alunoTurmaBoletim.NotaBim1Leitura);
-                cmd.Parameters.AddWithValue("@nota_bim1_conversacao", alunoTurmaBoletim.NotaBim1Conversacao);
-                cmd.Parameters.AddWithValue("@nota_bim1_final", alunoTurmaBoletim.NotaBim1Final);
-                cmd.Parameters.AddWithValue("@nota_bim2_leitura", alunoTurmaBoletim.NotaBim2Leitura);
-                cmd.Parameters.AddWithValue("@nota_bim2_escrita", alunoTurmaBoletim.NotaBim2Escrita);
-                cmd.Parameters.AddWithValue("@nota_bim2_conversacao", alunoTurmaBoletim.NotaBim2Conversacao);
-                cmd.Parameters.AddWithValue("@nota_bim2_final", alunoTurmaBoletim.NotaBim2Final);
-                cmd.Parameters.AddWithValue("@nota_final_semestre", alunoTurmaBoletim.NotaFinalSemestre);
-                cmd.Parameters.AddWithValue("@faltas_semestre", alunoTurmaBoletim.FaltasSemestre);
+                cmd.Parameters.AddWithValue("@nota_bim1_escrita", (object?)alunoTurmaBoletim.NotaBim1Escrita ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@nota_bim1_leitura", (object?)alunoTurmaBoletim.NotaBim1Leitura ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@nota_bim1_conversacao", (object?)alunoTurmaBoletim.NotaBim1Conversacao ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@nota_bim1_final", (object?)alunoTurmaBoletim.NotaBim1Final ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@nota_bim2_leitura", (object?)alunoTurmaBoletim.NotaBim2Leitura ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@nota_bim2_escrita", (object?)alunoTurmaBoletim.NotaBim2Escrita ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@nota_bim2_conversacao", (object?)alunoTurmaBoletim.NotaBim2Conversacao ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@nota_bim2_final", (object?)alunoTurmaBoletim.NotaBim2Final ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@nota_final_semestre", (object?)alunoTurmaBoletim.NotaFinalSemestre ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@faltas_semestre", (object?)alunoTurmaBoletim.FaltasSemestre ?? DBNull.Value);
                 cmd.Parameters.AddWithValue("@aluno_id", alunoTurmaBoletim.AlunoId);
                 cmd.Parameters.AddWithValue("@turma_id", alunoTurmaBoletim.TurmaId);
 
@@ -196,16 +196,16 @@ namespace EnglishNow.Repositories
 
                 cmd.Parameters.AddWithValue("@aluno_turma_boletim_id", alunoTurmaBoletim.Id);
 
-                cmd.Parameters.AddWithValue("@nota_bim1_escrita", alunoTurmaBoletim.NotaBim1Escrita);
-                cmd.Parameters.AddWithValue("@nota_bim1_leitura", alunoTurmaBoletim.NotaBim1Leitura);
-                cmd.Parameters.AddWithValue("@nota_bim1_conversacao", alunoTurmaBoletim.NotaBim1Conversacao);
-                cmd.Parameters.AddWithValue("@nota_bim1_final", alunoTurmaBoletim.NotaBim1Final);
-                cmd.Parameters.AddWithValue("@nota_bim2_leitura", alunoTurmaBoletim.NotaBim2Leitura);
-                cmd.Parameters.AddWithValue("@nota_bim2_escrita", alunoTurmaBoletim.NotaBim2Escrita);
-                cmd.Parameters.AddWithValue("@nota_bim2_conversacao", alunoTurmaBoletim.NotaBim2Conversacao);
-                cmd.Parameters.AddWithValue("@nota_bim2_final", alunoTurmaBoletim.NotaBim2Final);
-                cmd.Parameters.AddWithValue("@nota_final_semestre", alunoTurmaBoletim.NotaFinalSemestre);
-                cmd.Parameters.AddWithValue("@faltas_semestre", alunoTurmaBoletim.FaltasSemestre);
+                cmd.Parameters.AddWithValue("@nota_bim1_escrita", (object?)alunoTurmaBoletim.NotaBim1Escrita ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@nota_bim1_leitura", (object?)alunoTurmaBoletim.NotaBim1Leitura ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@nota_bim1_conversacao", (object?)alunoTurmaBoletim.NotaBim1Conversacao ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@nota_bim1_final", (object?)alunoTurmaBoletim.NotaBim1Final ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@nota_bim2_leitura", (object?)alunoTurmaBoletim.NotaBim2Leitura ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@nota_bim2_escrita", (object?)alunoTurmaBoletim.NotaBim2Escrita ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@nota_bim2_conversacao", (object?)alunoTurmaBoletim.NotaBim2Conversacao ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@nota_bim2_final", (object?)alunoTurmaBoletim.NotaBim2Final ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@nota_final_semestre", (object?)alunoTurmaBoletim.NotaFinalSemestre ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@faltas_semestre", (object?)alunoTurmaBoletim.FaltasSemestre ?? DBNull.Value);
 
                 conn.Open();
 
